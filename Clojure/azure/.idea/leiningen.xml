@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="LeiningenProjectSettings">
+    <option name="selectedProfiles">
+      <list>
+        <option value="base" />
+        <option value="system" />
+        <option value="user" />
+        <option value="provided" />
+        <option value="dev" />
+        <option value="debug" />
+        <option value="default" />
+        <option value="update" />
+        <option value="leiningen/default" />
+        <option value="leiningen/test" />
+        <option value="offline" />
+        <option value="uberjar" />
+      </list>
+    </option>
+  </component>
+</project>
