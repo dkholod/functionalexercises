@@ -3,7 +3,7 @@ open FSharp.Azure.StorageTypeProvider
 open Microsoft.WindowsAzure.Storage.Blob
 
 type Azure =
-    AzureTypeProvider<"DefaultEndpointsProtocol=https;AccountName=functiond31d29008d75;AccountKey=DYSnfB8W6/Jikmh4Cuyo7ZPW4G+cy2tiDKurVinxbvV1TlnFld6RGdWZOKkKx0IdKV8P3r+RNJPruxJJVTuBcw==;">
+    AzureTypeProvider<"DefaultEndpointsProtocol=https;AccountName=name;AccountKey=secret-key-token">
 
 let inline toKb b = (b |> double) / 1024.
 

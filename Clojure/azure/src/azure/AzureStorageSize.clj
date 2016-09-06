@@ -1,11 +1,10 @@
 (ns azurelog.reader
-  (:import [com.microsoft.azure.storage CloudStorageAccount]
-           [com.microsoft.azure.storage.blob]))
+  (:import [com.microsoft.azure.storage CloudStorageAccount]))
 
 (def conn-str
   (str "DefaultEndpointsProtocol=http;"
-       "AccountName=functiond31d29008d75;"
-       "AccountKey=DYSnfB8W6/Jikmh4Cuyo7ZPW4G+cy2tiDKurVinxbvV1TlnFld6RGdWZOKkKx0IdKV8P3r+RNJPruxJJVTuBcw==;"))
+       "AccountName=name;"
+       "AccountKey=secret-key-token"))
 
 (def blob-client
   (.createCloudBlobClient (CloudStorageAccount/parse conn-str)))

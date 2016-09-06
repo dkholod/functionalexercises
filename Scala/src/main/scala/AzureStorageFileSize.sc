@@ -6,7 +6,7 @@ import com.microsoft.azure.storage.blob._
 def toKb (b: Long) = b.toDouble / 1024
 
 object Azure {
-  val storageConnectionString = "DefaultEndpointsProtocol=https;AccountName=functiond31d29008d75;AccountKey=DYSnfB8W6/Jikmh4Cuyo7ZPW4G+cy2tiDKurVinxbvV1TlnFld6RGdWZOKkKx0IdKV8P3r+RNJPruxJJVTuBcw==;"
+  val storageConnectionString = "DefaultEndpointsProtocol=https;AccountName=name;AccountKey=secret-key-token;"
   val account = CloudStorageAccount.parse(storageConnectionString);
   val serviceClient = account.createCloudBlobClient
 
