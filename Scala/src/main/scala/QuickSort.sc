@@ -36,6 +36,7 @@ def time[R] (exec: => R): R = {
   }
 
 time {
-  (new SortSpec(badSort)).check(Test.Parameters.default.withMinSuccessfulTests(100000))
-  (new SortSpec(quickSort)).check(Test.Parameters.default.withMinSuccessfulTests(100000))
+  val config = Test.Parameters.default.withMinSuccessfulTests(100000)
+  (new SortSpec(badSort)).check(config)
+  (new SortSpec(quickSort)).check(config)
 }
