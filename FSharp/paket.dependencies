@@ -1,3 +1,5 @@
 source https://www.nuget.org/api/v2
 nuget fscheck
 nuget FSharp.Azure.StorageTypeProvider
+nuget FSharp.Management
+nuget fslab
