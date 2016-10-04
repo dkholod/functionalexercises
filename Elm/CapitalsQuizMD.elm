@@ -53,7 +53,8 @@ view model =
     div []
         [ h1 [ style [ ( "color", "CadetBlue " ) ] ] [ text "Capitals & Countries <| quiz" ]
         , div [ style [ ( "padding", "2rem" ) ] ]
-            [ text ("What is the capital of " ++ model.quiz.country ++ ": ")
+            [ score model.statistics
+            , text ("What is the capital of " ++ model.quiz.country ++ ": ")
             , Textfield.render Mdl
                 [ 2 ]
                 model.mdl
@@ -73,15 +74,39 @@ view model =
                 ]
                 [ text "Check" ]
             ]
-        --, score model.statistics
         , status model.status
         , list model.statistics
-        , div [ style [ ( "color", "white" ) ] ] [ text model.quiz.capital ] -- cheat
+        , div [ style [ ( "color", "white" ) ] ] [ text model.quiz.capital ]
+          -- cheat
         ]
         |> Material.Scheme.top
 
---score stats = 
---  let wins = stats |> List.filter (\it -> ) 
+
+score : List Status -> Html a
+score stats =
+    let
+        winsFun =
+            \it ->
+                case it of
+                    Right _ ->
+                        True
+
+                    Wrong _ ->
+                        False
+
+                    None ->
+                        False
+    in
+        let
+            wins =
+                stats |> List.filter winsFun |> List.length
+        in
+            let
+                losts =
+                    (stats |> List.length) - wins
+            in
+                div [] [ text ("(" ++ (toString wins) ++ ":" ++ (toString losts) ++ ")") ]
+
 
 status : Status -> Html a
 status st =
