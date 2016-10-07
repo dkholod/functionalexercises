@@ -103,17 +103,11 @@ status st =
 list : List Status -> Html a
 list items =
     let
-        f =
-            \it ->
+        f = \it ->
                 case it of
-                    Right txt ->
-                        ( Lists.icon "done" [], txt )
-
-                    Wrong txt ->
-                        ( Lists.icon "error outline" [], txt )
-
-                    None ->
-                        ( Lists.icon "" [], "" )
+                    Right txt -> ( Lists.icon "done" [], txt )
+                    Wrong txt -> ( Lists.icon "error outline" [], txt)
+                    None -> ( Lists.icon "" [], "" )
     in
         Lists.ul []
             (items
@@ -153,7 +147,6 @@ update msg model =
 getNewQuiz : Cmd Msg
 getNewQuiz =
     Task.perform FetchFail FetchSucceed (Http.get decode "https://funcxz.azurewebsites.net/api/capitalsquiz")
-
 
 decode : Decoder Quiz
 decode =
