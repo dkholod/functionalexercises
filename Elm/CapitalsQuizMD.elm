@@ -14,7 +14,6 @@ import Task
 import String exposing (..)
 import Json.Decode exposing (..)
 
-
 type Msg
     = Answer String
     | Check
@@ -22,12 +21,15 @@ type Msg
     | FetchFail Http.Error
     | Mdl (Material.Msg Msg)
 
-
 type alias Quiz =
     { country : String
     , capital : String
     }
 
+type Status
+    = None
+    | Right String
+    | Wrong String
 
 type alias Model =
     { quiz : Quiz
@@ -37,16 +39,8 @@ type alias Model =
     , mdl : Material.Model
     }
 
-
-type Status
-    = None
-    | Right String
-    | Wrong String
-
-
 type alias Mdl =
     Material.Model
-
 
 view : Model -> Html Msg
 view model =
@@ -81,49 +75,30 @@ view model =
         ]
         |> Material.Scheme.top
 
-
 score : List Status -> Html a
 score stats =
     let
-        winsFun =
-            \it ->
+        winsFun = \it ->
                 case it of
-                    Right _ ->
-                        True
-
-                    Wrong _ ->
-                        False
-
-                    None ->
-                        False
+                    Right _ -> True
+                    Wrong _ -> False
+                    None -> False
     in
-        let
-            wins =
-                stats |> List.filter winsFun |> List.length
+        let wins = stats |> List.filter winsFun |> List.length
         in
-            let
-                losts =
-                    (stats |> List.length) - wins
+            let losts = (stats |> List.length) - wins
             in
                 div [] [ text ("(" ++ (toString wins) ++ ":" ++ (toString losts) ++ ")") ]
 
-
 status : Status -> Html a
 status st =
-    let
-        ( color, txt ) =
+    let ( color, txt ) =
             case st of
-                Right s ->
-                    ( "green", "Right. " ++ s )
-
-                Wrong s ->
-                    ( "red", "Wrong! " ++ s )
-
-                None ->
-                    ( "", "" )
+                Right s -> ( "green", "Right. " ++ s )
+                Wrong s -> ( "red", "Wrong! " ++ s )
+                None -> ( "", "" )
     in
         div [ style [ ( "color", color ) ] ] [ text txt ]
-
 
 list : List Status -> Html a
 list items =
@@ -146,20 +121,16 @@ list items =
                 |> List.map (\( icon, txt ) -> Lists.li [] [ Lists.content [] [ icon, text txt ] ])
             )
 
-
 update : Msg -> Model -> ( Model, Cmd Msg )
 update msg model =
     case msg of
         Answer a ->
             { model | answer = a, status = None } ! []
 
-        Check ->
-            let
-                message =
-                    "The capital of " ++ model.quiz.country ++ " is " ++ model.quiz.capital
+        Check -> 
+            let message = "The capital of " ++ model.quiz.country ++ " is " ++ model.quiz.capital
             in
-                let
-                    checkStatus =
+                let checkStatus =
                         if toUpper model.answer == toUpper model.quiz.capital then
                             Right message
                         else
@@ -179,7 +150,6 @@ update msg model =
         Mdl msg' ->
             Material.update msg' model
 
-
 getNewQuiz : Cmd Msg
 getNewQuiz =
     Task.perform FetchFail FetchSucceed (Http.get decode "https://funcxz.azurewebsites.net/api/capitalsquiz")
@@ -189,7 +159,6 @@ decode : Decoder Quiz
 decode =
     object2 Quiz ("Country" := string) ("Capital" := string)
 
-
 model : Model
 model =
     { quiz = (Quiz "" "")
@@ -198,7 +167,6 @@ model =
     , mdl = Material.model
     , status = None
     }
-
 
 main : Program Never
 main =
